@@ -3,11 +3,13 @@
 
 #include "entity.h"
 
+class Room;
+
 using namespace std;
 
 class Creature : public Entity {
 public:
-	Creature();
+	Creature(const char* name, const char* description, Room* room);
 	~Creature();
 };
 
