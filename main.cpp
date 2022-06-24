@@ -15,7 +15,7 @@ int main()
 	char key;
 	string player_input;
 	vector<string> args;
-	args.reserve(10);
+	args.reserve(10); //command with more than 10 arguments is not expected
 	
 	cout << WHITE_ "Welcome to MyZork!\n" _WHITE;
 	cout << "----------------\n";

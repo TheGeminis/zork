@@ -1,7 +1,7 @@
 #include <iostream>
 #include "room.h"
 
-Room::Room() : Entity()
+Room::Room() : Entity(title, description, (Entity*)room)
 {
 }
 
