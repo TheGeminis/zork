@@ -18,11 +18,11 @@ void Player::Look(const vector<string>& args) const
 {
 	if (args.size() > 1)
 	{
-		for (list<Entity*>::const_iterator it = parent->container.begin(); it != parent->container.cend(); ++it)
+		for (auto it : parent->container)
 		{
-			if (Same((*it)->name, args[1]) || ((*it)->type == EXIT && Same(args[1], ((Exit*)(*it))->GetNameFrom((Room*)parent))))
+			if (Same(it->name, args[1]) || (it->type == EXIT && Same(args[1], ((Exit*)it)->GetNameFrom((Room*)parent))))
 			{
-				(*it)->Look();
+				it->Look();
 				return;
 			}
 		}
@@ -121,14 +121,14 @@ void Player::Inventory() const
 		return;
 	}
 
-	for (list<Entity*>::const_iterator it = items.begin(); it != items.cend(); ++it)
+	for (auto it : items)
 	{
-		if (*it == weapon)
-			cout << "\n" << (*it)->name << " (as weapon)";
-		else if (*it == armour)
-			cout << "\n" << (*it)->name << " (as armour)";
+		if (it == weapon)
+			cout << "\n" << it->name << " (as weapon)";
+		else if (it == armour)
+			cout << "\n" << it->name << " (as armour)";
 		else
-			cout << "\n" << (*it)->name;
+			cout << "\n" << it->name;
 	}
 
 	cout << "\n";
@@ -297,9 +297,9 @@ bool Player::Loot(const vector<string>& args)
 	{
 		cout << "\nYou loot " << target->name << "'s corpse:\n";
 
-		for (list<Entity*>::const_iterator it = items.begin(); it != items.cend(); ++it)
+		for (auto it : items)
 		{
-			Item* i = (Item*)(*it);
+			Item* i = (Item*)it;
 			cout << "You find: " << i->name << "\n";
 			i->ChangeParentTo(this);
 		}

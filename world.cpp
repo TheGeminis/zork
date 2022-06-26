@@ -6,6 +6,7 @@
 #include "exit.h"
 #include "item.h"
 #include "creature.h"
+//#include <algorithm>
 
 using namespace std;
 
@@ -65,9 +66,7 @@ World::World()
 
 World::~World()
 {
-	for (list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
-		delete* it;
-
+	for (auto it : entities) delete it;
 	entities.clear();
 }
 
@@ -89,8 +88,7 @@ void World::GameLoop()
 
 	if ((now - tick_timer) / CLOCKS_PER_SEC > TICK_FREQUENCY)
 	{
-		for (list<Entity*>::iterator it = entities.begin(); it != entities.end(); ++it)
-			(*it)->Tick();
+		for (auto it : entities) it->Tick();
 
 		tick_timer = now;
 	}

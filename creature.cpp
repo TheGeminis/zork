@@ -104,14 +104,14 @@ void Creature::Inventory() const
 	}
 
 	cout << "\n" << name << " owns:\n";
-	for (list<Entity*>::const_iterator it = items.begin(); it != items.cend(); ++it)
+	for (auto it : items)
 	{
-		if (*it == weapon)
-			cout << (*it)->name << " (as weapon)\n";
-		else if (*it == armour)
-			cout << (*it)->name << " (as armour)\n";
+		if (it == weapon)
+			cout << (it)->name << " (as weapon)\n";
+		else if (it == armour)
+			cout << (it)->name << " (as armour)\n";
 		else
-			cout << (*it)->name << "\n";
+			cout << (it)->name << "\n";
 	}
 }
 
@@ -180,9 +180,9 @@ bool Creature::AutoEquip()
 	list<Entity*> items;
 	FindAll(ITEM, items);
 
-	for (list<Entity*>::const_iterator it = items.begin(); it != items.cend(); ++it)
+	for (auto it : items)
 	{
-		Item* i = (Item*)(*it);
+		Item* i = (Item*)it;
 
 		if (i->item_type == WEAPON)
 			weapon = i;
@@ -361,9 +361,9 @@ bool Creature::Loot(const vector<string>& args)
 	list<Entity*> items;
 	target->FindAll(ITEM, items);
 
-	for (list<Entity*>::const_iterator it = items.begin(); it != items.cend(); ++it)
+	for (auto it : items)
 	{
-		Item* i = (Item*)(*it);
+		Item* i = (Item*)it;
 		i->ChangeParentTo(this);
 	}
 
