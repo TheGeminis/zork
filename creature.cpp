@@ -332,10 +332,19 @@ int Creature::ReceiveAttack(int damage)
 	int prot = (armour) ? armour->GetValue() : Roll(min_protection, max_protection);
 	int received = damage - prot;
 
+	if (received < 0) received = 0; //It looks awkward to receive negative amounts of damage, it suggests we are gaining life while we are achieving this by a high amount of armour
+	
 	hit_points -= received;
 
-	if (PlayerInRoom())
-		cout << name << " is hit for " << received << " damage (" << prot << " blocked) \n";
+	if (PlayerInRoom()) {
+		if (received == 0 && damage > 0) cout << name << " takes no damage (" << prot << " blocked) \n";
+		else if (received == 0 && damage == 0) cout << name << " takes no damage\n";
+		else {
+			cout << name << " is hit for " << received << " damage (" << prot << " blocked) \n";
+			cout << name << " has " << hit_points << " hit points remaining! \n";
+		}
+	}
+
 
 	if (IsAlive() == false)
 		Die();

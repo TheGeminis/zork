@@ -268,9 +268,16 @@ bool Player::Attack(const vector<string>& args)
 		return false;
 	}
 
-	combat_target = target;
-	cout << "\nYou jump to attack " << target->name << "!\n";
-	return true;
+	else if (((weapon) ? weapon->max_value : max_damage) == 0) {
+		cout << "\nYou don't have damage!\n";
+		return false;
+	}
+
+	else {
+		combat_target = target;
+		cout << "\nYou jump to attack " << target->name << "!\n";
+		return true;
+	}
 }
 
 
