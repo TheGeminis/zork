@@ -52,7 +52,7 @@ bool Creature::Go(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Creature::Take(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -91,7 +91,7 @@ bool Creature::Take(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 void Creature::Inventory() const
 {
 	list<Entity*> items;
@@ -115,7 +115,7 @@ void Creature::Inventory() const
 	}
 }
 
-// ----------------------------------------------------
+
 bool Creature::Equip(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -146,7 +146,7 @@ bool Creature::Equip(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Creature::UnEquip(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -171,7 +171,7 @@ bool Creature::UnEquip(const vector<string>& args)
 }
 
 
-// ----------------------------------------------------
+
 bool Creature::AutoEquip()
 {
 	if (!IsAlive())
@@ -193,7 +193,7 @@ bool Creature::AutoEquip()
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Creature::Lock(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -217,7 +217,7 @@ bool Creature::Lock(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Creature::UnLock(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -241,7 +241,7 @@ bool Creature::UnLock(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Creature::Drop(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -260,25 +260,25 @@ bool Creature::Drop(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 Room* Creature::GetRoom() const
 {
 	return (Room*)parent;
 }
 
-// ----------------------------------------------------
+
 bool Creature::PlayerInRoom() const
 {
 	return parent->Find(PLAYER) != NULL;
 }
 
-// ----------------------------------------------------
+
 bool Creature::IsAlive() const
 {
 	return hit_points > 0;
 }
 
-// ----------------------------------------------------
+
 void Creature::Tick()
 {
 	if (combat_target != NULL)
@@ -290,7 +290,7 @@ void Creature::Tick()
 	}
 }
 
-// ----------------------------------------------------
+
 bool Creature::Attack(const vector<string>& args)
 {
 	Creature* target = (Creature*)parent->Find(args[1], CREATURE);
@@ -303,7 +303,7 @@ bool Creature::Attack(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 int Creature::MakeAttack()
 {
 	if (!IsAlive() || !combat_target->IsAlive())
@@ -326,7 +326,7 @@ int Creature::MakeAttack()
 	return result;
 }
 
-// ----------------------------------------------------
+
 int Creature::ReceiveAttack(int damage)
 {
 	int prot = (armour) ? armour->GetValue() : Roll(min_protection, max_protection);
@@ -343,14 +343,14 @@ int Creature::ReceiveAttack(int damage)
 	return received;
 }
 
-// ----------------------------------------------------
+
 void Creature::Die()
 {
 	if (PlayerInRoom())
 		cout << name << " dies.\n";
 }
 
-// ----------------------------------------------------
+
 bool Creature::Loot(const vector<string>& args)
 {
 	Creature* target = (Creature*)parent->Find(args[1], CREATURE);
@@ -372,7 +372,7 @@ bool Creature::Loot(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 void Creature::Stats() const
 {
 	cout << "\nHit Points: " << hit_points;

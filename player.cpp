@@ -39,7 +39,7 @@ void Player::Look(const vector<string>& args) const
 	}
 }
 
-// ----------------------------------------------------
+
 bool Player::Go(const vector<string>& args)
 {
 	Exit* exit = GetRoom()->GetExit(args[1]);
@@ -64,7 +64,7 @@ bool Player::Go(const vector<string>& args)
 }
 
 
-// ----------------------------------------------------
+
 bool Player::Take(const vector<string>& args)
 {
 	if (args.size() == 4)
@@ -109,7 +109,7 @@ bool Player::Take(const vector<string>& args)
 	return false;
 }
 
-// ----------------------------------------------------
+
 void Player::Inventory() const
 {
 	list<Entity*> items;
@@ -134,7 +134,7 @@ void Player::Inventory() const
 	cout << "\n";
 }
 
-// ----------------------------------------------------
+
 bool Player::Drop(const vector<string>& args)
 {
 	if (args.size() == 2)
@@ -180,7 +180,7 @@ bool Player::Drop(const vector<string>& args)
 	return false;
 }
 
-// ----------------------------------------------------
+
 bool Player::Equip(const vector<string>& args)
 {
 	Item* item = (Item*)Find(args[1], ITEM);
@@ -211,7 +211,7 @@ bool Player::Equip(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Player::UnEquip(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -240,7 +240,7 @@ bool Player::UnEquip(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Player::Examine(const vector<string>& args) const
 {
 	Creature* target = (Creature*)parent->Find(args[1], CREATURE);
@@ -257,7 +257,7 @@ bool Player::Examine(const vector<string>& args) const
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Player::Attack(const vector<string>& args)
 {
 	Creature* target = (Creature*)parent->Find(args[1], CREATURE);
@@ -273,7 +273,7 @@ bool Player::Attack(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Player::Loot(const vector<string>& args)
 {
 	Creature* target = (Creature*)parent->Find(args[1], CREATURE);
@@ -310,7 +310,7 @@ bool Player::Loot(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Player::Lock(const vector<string>& args)
 {
 	if (!IsAlive())
@@ -351,7 +351,7 @@ bool Player::Lock(const vector<string>& args)
 	return true;
 }
 
-// ----------------------------------------------------
+
 bool Player::UnLock(const vector<string>& args)
 {
 	if (!IsAlive())

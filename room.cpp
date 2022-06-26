@@ -32,6 +32,28 @@ void Room::Look() const
 		}
 	}
 
+	// List items --
+	for (list<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
+	{
+		if ((*it)->type == ITEM)
+		{
+			Item* item = (Item*)*it;
+			cout << "\nThere is an item here: " << item->name;
+		}
+	}
+
+	// List creatures --
+	for (list<Entity*>::const_iterator it = container.begin(); it != container.cend(); ++it)
+	{
+		if ((*it)->type == CREATURE)
+		{
+			Creature* cr = (Creature*)*it;
+			cout << "\nThere is someone else here: " << cr->name;
+			if (cr->IsAlive() == false)
+				cout << " (dead)";
+		}
+	}
+
 	cout << "\n";
 }
 

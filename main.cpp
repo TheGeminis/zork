@@ -22,6 +22,8 @@ int main()
 
 	World MyWorld;
 
+	args.push_back("look");
+
 	while (1)
 	{
 		if (_kbhit() != 0)
