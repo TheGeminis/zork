@@ -22,6 +22,7 @@ public:
 	bool Tick(vector<string>& args);
 	void GameLoop();
 	bool ParseCommand(vector<string>& args);
+	bool GameFinished = false;
 
 private:
 	clock_t tick_timer;

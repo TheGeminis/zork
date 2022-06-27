@@ -113,6 +113,11 @@ bool World::Tick(vector<string>& args)
 
 	GameLoop();
 
+	for (auto it : entities) {
+		if (it->name == "Portal" && player->GetRoom() == it) GameFinished = true;
+	}
+	
+
 	return ret;
 }
 

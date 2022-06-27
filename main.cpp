@@ -47,6 +47,11 @@ int main()
 				Tokenize(player_input, args);
 		}
 
+		if (MyWorld.GameFinished) {
+			cout << endl << WHITE_ "You did it, you escaped!\nCongratulations!" _OFF;
+			break;
+		}
+
 		if (args.size() > 0 && Same(args[0], "quit"))
 			break;
 
@@ -61,6 +66,6 @@ int main()
 		}
 	}
 
-	cout << "\nThanks for playing, Bye!\n";
+	cout << WHITE_ "\nThanks for playing, Bye!\n" _OFF;
 	return 0;
 }
