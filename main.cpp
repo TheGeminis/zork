@@ -17,7 +17,7 @@ int main()
 	
 	cout << WHITE_ "Welcome to MyZork!\n" _OFF;
 	cout << "----------------\n";
-
+	cout << "You awake from a big fall after the floor below you collapses when you were exploring an old ruin.\n";
 	World MyWorld;
 
 	args.push_back("look");

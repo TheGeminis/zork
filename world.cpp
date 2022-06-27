@@ -6,7 +6,6 @@
 #include "exit.h"
 #include "item.h"
 #include "creature.h"
-//#include <algorithm>
 
 using namespace std;
 
@@ -52,34 +51,34 @@ World::World()
 	entities.push_back(ex7);
 
 	// Creatures ----
-	Creature* butler = new Creature("Butler", "It's James, the house Butler.", hall);
-	butler->hit_points = 10;
+	Creature* esqueleton = new Creature("Esqueleton", "You don't believe your eyes, it's an esqueleton standing there menacingly", crypt);
+	esqueleton->hit_points = 10;
 
-	entities.push_back(butler);
+	entities.push_back(esqueleton);
 
 	// Items -----
-	Item* mailbox = new Item("Mailbox", "Looks like it might contain something.", vault);
-	Item* key = new Item("Key", "Old iron key.", mailbox);
+	Item* chest = new Item("Chest", "Looks like it might contain something.", vault);
+	Item* key = new Item("Key", "Old iron key.", chest);
 	ex2->key = key;
 
-	Item* sword = new Item("Sword", "A simple old and rusty sword.", collapsed, WEAPON);
+	Item* sword = new Item("Sword", "A simple old and rusty sword.", chest, WEAPON);
 	sword->min_value = 2;
 	sword->max_value = 6;
 
 	Item* sword2(sword);
-	sword2->parent = butler;
+	sword2->parent = esqueleton;
 
-	Item* shield = new Item("Shield", "An old wooden shield.", butler, ARMOUR);
+	Item* shield = new Item("Shield", "An old wooden shield.", esqueleton, ARMOUR);
 	shield->min_value = 1;
 	shield->max_value = 3;
-	butler->AutoEquip();
+	esqueleton->AutoEquip();
 
-	entities.push_back(mailbox);
+	entities.push_back(chest);
 	entities.push_back(sword);
 	entities.push_back(shield);
 
 	// Player ----
-	player = new Player("Hero", "You are an awesome adventurer!", collapsed);
+	player = new Player("Explorer", "You are an explorer tasked with surveing some old ruins in the forest.", collapsed);
 	player->hit_points = 25;
 	entities.push_back(player);
 }
