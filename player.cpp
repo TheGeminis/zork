@@ -71,7 +71,6 @@ bool Player::Take(const vector<string>& args)
 	{
 		Item* item = (Item*)parent->Find(args[3], ITEM);
 
-		// we could pick something from a container in our inventory ...
 		if (item == NULL)
 			item = (Item*)Find(args[3], ITEM);
 
@@ -395,6 +394,47 @@ bool Player::UnLock(const vector<string>& args)
 	cout << "\nYou unlock " << exit->GetNameFrom((Room*)parent) << "...\n";
 
 	exit->locked = false;
+
+	return true;
+}
+
+
+bool Player::Combine(const vector<string>& args) {
+	if (!IsAlive()) return false;
+
+	Item* comp1 = (Item*)Find(args[1], ITEM);
+	Item* comp2 = (Item*)Find(args[3], ITEM);
+	
+	if (comp1 == NULL) {
+		cout << "\nObject '" << args[1] << "' not found in your inventory.\n";
+		return false;
+	}
+
+	if (comp2 == NULL) {
+		cout << "\nObject '" << args[3] << "' not found in your inventory.\n";
+		return false;
+	}
+
+	if (comp1->name != "Gem" && comp2->name != "Gem") {
+		cout << "\nCannot combine these objects.\n";
+		return false;
+	}
+
+	if (comp1->name != "Stone" && comp2->name != "Stone") {
+		cout << "\nCannot combine these objects.\n";
+		return false;
+	}
+
+	Room* devRoom = (Room*)Find("DevRoom", ROOM);
+	Item* device = comp1->full_combination;
+	
+	cout << "\nYou combine " << args[1] << " and " << args[3] << "\n";
+	cout << "\nYou made " << device->name << "!\n";
+	cout << "\n" << device->description << "\n";
+	
+	comp1->ChangeParentTo(devRoom);
+	comp2->ChangeParentTo(devRoom);
+	device->ChangeParentTo(this);
 
 	return true;
 }

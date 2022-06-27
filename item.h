@@ -12,7 +12,8 @@ enum ItemType
 {
 	COMMON,
 	WEAPON,
-	ARMOUR
+	ARMOUR,
+	COMBINER
 };
 
 class Item : public Entity {
@@ -27,6 +28,8 @@ public:
 	ItemType item_type;
 	int min_value;
 	int max_value;
+	Item* comp; // compnent that needs to combine
+	Item* full_combination; // Result of combination
 };
 
 #endif //__Item__

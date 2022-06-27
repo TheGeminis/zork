@@ -23,6 +23,8 @@ World::World()
 	Room* crypt = new Room("Crypt", "You are inside a room that seems to be build more like a prison cell, you have a feeling something doesn't want you here.");
 	Room* portal = new Room("Portal", "This room is different to all the other places you have seen, at the center there is a frame with columns that resemble an entrance. Maybe you can get out through here.");
 
+	Room* devRoom = new Room("devRoom", "You are not meant to be here");
+
 	Exit* ex1 = new Exit("south", "north", "Hall entrance", collapsed, hall);
 	Exit* ex2 = new Exit("west", "east", "Decorated entrance", temple, hall);
 	Exit* ex3 = new Exit("north", "west", "Golden gate", vault, hall);
@@ -32,7 +34,7 @@ World::World()
 	Exit* ex7 = new Exit("south", "north", "Iridescent doorway", intersection, portal);
 
 	ex2->locked = true;
-	ex4->locked = true;
+	ex7->locked = true;
 
 	entities.push_back(collapsed);
 	entities.push_back(hall);
@@ -41,6 +43,8 @@ World::World()
 	entities.push_back(intersection);
 	entities.push_back(crypt);
 	entities.push_back(portal);
+
+	entities.push_back(devRoom);
 
 	entities.push_back(ex1);
 	entities.push_back(ex2);
@@ -59,7 +63,9 @@ World::World()
 	// Items -----
 	Item* chest = new Item("Chest", "Looks like it might contain something.", vault);
 	Item* key = new Item("Key", "Old iron key.", chest);
+	Item* device = new Item("Device", "Glows and feels powerful...", devRoom);
 	ex2->key = key;
+	ex7->key = device;
 
 	Item* sword = new Item("Sword", "A simple old and rusty sword.", chest, WEAPON);
 	sword->min_value = 2;
@@ -73,9 +79,18 @@ World::World()
 	shield->max_value = 3;
 	esqueleton->AutoEquip();
 
+	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", collapsed, COMBINER);
+	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", collapsed, COMBINER);
+	gem->comp = stone;
+	gem->full_combination = device;
+	stone->comp = gem;
+	stone->full_combination = device;
+
 	entities.push_back(chest);
 	entities.push_back(sword);
 	entities.push_back(shield);
+	entities.push_back(gem);
+	entities.push_back(stone);
 
 	// Player ----
 	player = new Player("Explorer", "You are an explorer tasked with surveing some old ruins in the forest.", collapsed);
@@ -230,6 +245,11 @@ bool World::ParseCommand(vector<string>& args)
 		else if (Same(args[0], "drop") || Same(args[0], "put"))
 		{
 			player->Drop(args);
+		}
+
+		else if (Same(args[0], "combine") || Same(args[0], "comb"))
+		{
+			player->Combine(args);
 		}
 		else
 			ret = false;
