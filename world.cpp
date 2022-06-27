@@ -16,33 +16,53 @@ World::World()
 	tick_timer = clock();
 
 	// Rooms ----
-	Room* forest = new Room("Forest", "You are surrounded by tall trees. It feels like a huge forest someone could get lost easily.");
-	Room* house = new Room("House", "You are inside a beautiful but small white house.");
-	Room* basement = new Room("Basement", "The basement features old furniture and dim light.");
+	Room* collapsed = new Room("Collapsed", "You find yourself inside a collapsed tunnel, the cealing must had collapsed due to your weight.");
+	Room* hall = new Room("Hall", "You are inside a great hall, you are surrounded by great columns, small statues and inscriptions on the walls.");
+	Room* temple = new Room("Temple", "The temple features a single altar in front of a statue depicting a hooded figure praying.");
+	Room* vault = new Room("Vault", "The vault contains many pergamins and old rusted paintings on the walls.");
+	Room* intersection = new Room("Intersection", "A point where two tunnels meet connecting 4 places.");
+	Room* crypt = new Room("Crypt", "You are inside a room that seems to be build more like a prison cell, you have a feeling something doesn't want you here.");
+	Room* portal = new Room("Portal", "This room is different to all the other places you have seen, at the center there is a frame with columns that resemble an entrance. Maybe you can get out through here.");
 
-	Exit* ex1 = new Exit("west", "east", "Little path", house, forest);
-	Exit* ex2 = new Exit("down", "up", "Stairs", house, basement);
+	Exit* ex1 = new Exit("south", "north", "Hall entrance", collapsed, hall);
+	Exit* ex2 = new Exit("west", "east", "Decorated entrance", temple, hall);
+	Exit* ex3 = new Exit("north", "west", "Golden gate", vault, hall);
+	Exit* ex4 = new Exit("south", "north", "Main tunnel", hall, intersection);
+	Exit* ex5 = new Exit("up", "down", "stairs", crypt, intersection);
+	Exit* ex6 = new Exit("west", "east", "Golden tunnel", intersection, vault);
+	Exit* ex7 = new Exit("south", "north", "Iridescent doorway", intersection, portal);
+
 	ex2->locked = true;
+	ex4->locked = true;
 
-	entities.push_back(forest);
-	entities.push_back(house);
-	entities.push_back(basement);
+	entities.push_back(collapsed);
+	entities.push_back(hall);
+	entities.push_back(temple);
+	entities.push_back(vault);
+	entities.push_back(intersection);
+	entities.push_back(crypt);
+	entities.push_back(portal);
 
 	entities.push_back(ex1);
 	entities.push_back(ex2);
+	entities.push_back(ex3);
+	entities.push_back(ex4);
+	entities.push_back(ex5);
+	entities.push_back(ex6);
+	entities.push_back(ex7);
 
 	// Creatures ----
-	Creature* butler = new Creature("Butler", "It's James, the house Butler.", house);
+	Creature* butler = new Creature("Butler", "It's James, the house Butler.", hall);
 	butler->hit_points = 10;
 
 	entities.push_back(butler);
 
 	// Items -----
-	Item* mailbox = new Item("Mailbox", "Looks like it might contain something.", house);
+	Item* mailbox = new Item("Mailbox", "Looks like it might contain something.", vault);
 	Item* key = new Item("Key", "Old iron key.", mailbox);
 	ex2->key = key;
 
-	Item* sword = new Item("Sword", "A simple old and rusty sword.", forest, WEAPON);
+	Item* sword = new Item("Sword", "A simple old and rusty sword.", collapsed, WEAPON);
 	sword->min_value = 2;
 	sword->max_value = 6;
 
@@ -59,7 +79,7 @@ World::World()
 	entities.push_back(shield);
 
 	// Player ----
-	player = new Player("Hero", "You are an awesome adventurer!", forest);
+	player = new Player("Hero", "You are an awesome adventurer!", collapsed);
 	player->hit_points = 25;
 	entities.push_back(player);
 }
