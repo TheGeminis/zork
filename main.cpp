@@ -7,8 +7,6 @@
 
 using namespace std;
 
-#define WHITE_ "\033[1;36m"
-#define _WHITE "\033[0m"
 
 int main()
 {
@@ -17,7 +15,7 @@ int main()
 	vector<string> args;
 	args.reserve(10); //command with more than 10 arguments is not expected
 	
-	cout << WHITE_ "Welcome to MyZork!\n" _WHITE;
+	cout << WHITE_ "Welcome to MyZork!\n" _OFF;
 	cout << "----------------\n";
 
 	World MyWorld;

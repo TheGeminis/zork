@@ -20,7 +20,7 @@ Exit::~Exit()
 
 void Exit::Look() const
 {
-	cout << name << " to " << opposite_name << "\n";
+	cout << "\n" << name << " to " << opposite_name << "\n";
 	cout << description << "\n";
 }
 

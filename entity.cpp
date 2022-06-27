@@ -18,7 +18,7 @@ Entity::~Entity()
 
 void Entity::Look() const
 {
-	cout << name << "\n";
+	cout << "\n" << name << "\n";
 	cout << description << "\n";
 }
 

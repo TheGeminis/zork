@@ -23,8 +23,8 @@ void Creature::Look(const vector<string>& args) const
 {
 	if (IsAlive())
 	{
-		cout << name << "\n";
-		cout << description << "\n";
+		cout << "\n" << name << "\n";
+		cout << "\n" << description << "\n";
 	}
 	else
 	{
