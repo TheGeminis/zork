@@ -7,7 +7,7 @@ This game is a variation on the zork game where you must fins a way to escape th
 This game has been created by Jan Marc Costa.
 
 The link to the repo with the code is the following: 
-https://github.com/TheGeminis/zork_test.git
+https://github.com/TheGeminis/zork.git
 
 Instruccions to complete the game:
 
