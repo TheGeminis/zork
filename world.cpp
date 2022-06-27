@@ -15,13 +15,13 @@ World::World()
 	tick_timer = clock();
 
 	// Rooms ----
-	Room* collapsed = new Room("Collapsed", "You find yourself inside a collapsed tunnel, the cealing must had collapsed due to your weight.");
-	Room* hall = new Room("Hall", "You are inside a great hall, you are surrounded by great columns, small statues and inscriptions on the walls.");
+	Room* collapsed = new Room("Collapsed", "You find yourself inside a collapsed tunnel, the ceiling must have collapsed due to your weight.");
+	Room* hall = new Room("Hall", "You are inside a great hall, you are surrounded by great columns, small statues, and inscriptions on the walls.");
 	Room* temple = new Room("Temple", "The temple features a single altar in front of a statue depicting a hooded figure praying.");
 	Room* vault = new Room("Vault", "The vault contains many pergamins and old rusted paintings on the walls.");
 	Room* intersection = new Room("Intersection", "A point where two tunnels meet connecting 4 places.");
-	Room* crypt = new Room("Crypt", "You are inside a room that seems to be build more like a prison cell, you have a feeling something doesn't want you here.");
-	Room* portal = new Room("Portal", "This room is different to all the other places you have seen, at the center there is a frame with columns that resemble an entrance. Maybe you can get out through here.");
+	Room* crypt = new Room("Crypt", "You are inside a room that seems to be built more like a prison cell, you have a feeling something doesn't want you here.");
+	Room* portal = new Room("Portal", "This room is different from all the other places you have seen, at the center, there is a frame with columns that resemble an entrance. Maybe you can get out through here.");
 
 	Room* devRoom = new Room("devRoom", "You are not meant to be here");
 
@@ -34,6 +34,7 @@ World::World()
 	Exit* ex7 = new Exit("south", "north", "Iridescent doorway", intersection, portal);
 
 	ex2->locked = true;
+	ex4->locked = true;
 	ex7->locked = true;
 
 	entities.push_back(collapsed);
@@ -55,16 +56,18 @@ World::World()
 	entities.push_back(ex7);
 
 	// Creatures ----
-	Creature* esqueleton = new Creature("Esqueleton", "You don't believe your eyes, it's an esqueleton standing there menacingly", crypt);
-	esqueleton->hit_points = 10;
+	Creature* skeleton = new Creature("Skeleton", "You don't believe your eyes, it's an esqueleton standing there menacingly", crypt);
+	skeleton->hit_points = 10;
 
-	entities.push_back(esqueleton);
+	entities.push_back(skeleton);
 
 	// Items -----
 	Item* chest = new Item("Chest", "Looks like it might contain something.", vault);
 	Item* key = new Item("Key", "Old iron key.", chest);
+	Item* key2 = new Item("Shortcut Key", "This key may help you go somewhere faster.", skeleton);
 	Item* device = new Item("Device", "Glows and feels powerful...", devRoom);
 	ex2->key = key;
+	ex4->key = key2;
 	ex7->key = device;
 
 	Item* sword = new Item("Sword", "A simple old and rusty sword.", chest, WEAPON);
@@ -72,15 +75,15 @@ World::World()
 	sword->max_value = 6;
 
 	Item* sword2(sword);
-	sword2->parent = esqueleton;
+	sword2->parent = skeleton;
 
-	Item* shield = new Item("Shield", "An old wooden shield.", esqueleton, ARMOUR);
+	Item* shield = new Item("Shield", "An old wooden shield.", skeleton, ARMOUR);
 	shield->min_value = 1;
 	shield->max_value = 3;
-	esqueleton->AutoEquip();
+	skeleton->AutoEquip();
 
-	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", collapsed, COMBINER);
-	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", collapsed, COMBINER);
+	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", skeleton, COMBINER);
+	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", temple, COMBINER);
 	gem->comp = stone;
 	gem->full_combination = device;
 	stone->comp = gem;
