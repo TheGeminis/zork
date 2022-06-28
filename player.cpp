@@ -296,7 +296,7 @@ bool Player::Attack(const vector<string>& args)
 				return false;
 			}
 
-			else if (!Same(response, "yes") || !Same(response, "y")) {
+			else if (!Same(response, "yes") && !Same(response, "y")) {
 				
 				cout << "\nIf you can't respond a simple yes or no question in your head, maybe you sould not attempt to fight a real fight in the real world...\n";
 				cout << "\nYou back away slowly...\n";

@@ -21,6 +21,7 @@ public:
 
 	bool Tick(vector<string>& args);
 	void GameLoop();
+	bool IsPlayerAlive();
 	bool ParseCommand(vector<string>& args);
 	bool GameFinished = false;
 

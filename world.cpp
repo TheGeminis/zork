@@ -148,6 +148,11 @@ void World::GameLoop()
 	}
 }
 
+bool World::IsPlayerAlive() {
+	
+	return player->IsAlive();
+}
+
 bool World::ParseCommand(vector<string>& args)
 {
 	bool ret = true;

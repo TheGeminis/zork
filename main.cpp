@@ -46,6 +46,11 @@ int main()
 				Tokenize(player_input, args);
 		}
 
+		if (!MyWorld.IsPlayerAlive()) {
+			cout << "\nYou died!\n";
+			break;
+		}
+
 		if (MyWorld.GameFinished) {
 			cout << endl << "You did it, you escaped!\nCongratulations!";
 			break;
