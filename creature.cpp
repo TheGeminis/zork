@@ -313,6 +313,8 @@ int Creature::MakeAttack()
 	}
 
 	int result = (weapon) ? weapon->GetValue() : Roll(min_damage, max_damage);
+	
+	CombatModifiers(result, this->aura, combat_target->aura);
 
 	if (PlayerInRoom())
 		cout << name << " attacks " << combat_target->name << " for " << result << "\n";
@@ -333,12 +335,15 @@ int Creature::ReceiveAttack(int damage)
 	int received = damage - prot;
 
 	if (received < 0) received = 0; //It looks awkward to receive negative amounts of damage, it suggests we are gaining life while we are achieving this by a high amount of armour
-	
+
 	hit_points -= received;
+	if (hit_points < 0) hit_points = 0; //It looks awkward to have negative amounts of hit points
 
 	if (PlayerInRoom()) {
-		if (received == 0 && damage > 0) cout << name << " takes no damage (" << prot << " blocked) \n";
-		else if (received == 0 && damage == 0) cout << name << " takes no damage\n";
+		if (received == 0) {
+			if (damage > 0) cout << name << " takes no damage (" << prot << " blocked) \n";
+			else if (damage == 0) cout << name << " takes no damage\n";
+		}
 		else {
 			cout << name << " is hit for " << received << " damage (" << prot << " blocked) \n";
 			cout << name << " has " << hit_points << " hit points remaining! \n";
@@ -393,5 +398,31 @@ void Creature::Stats() const
 	if (aura != "") {
 		cout << "Your aura feels " << aura;
 		cout << "\n";
+	}
+}
+
+void Creature::CombatModifiers(int & damage, string & aura_attacker, string & aura_target) {
+	
+	if (aura_attacker != "" && aura_target != "" && aura_attacker != aura_target) {
+
+		cout << "\nAura " << aura_attacker << " modifies damage to aura " << aura_target << " from " << damage << " to ";
+		
+		if (aura_attacker == "red" && aura_target == "green") damage *= 2;
+		else if (aura_attacker == "green" && aura_target == "yellow") damage *= 2;
+		else if (aura_attacker == "yellow" && aura_target == "blue") damage *= 2;
+		else if (aura_attacker == "blue" && aura_target == "red") damage *= 2;
+
+		else if (aura_attacker == "red" && aura_target == "blue") damage /= 2;
+		else if (aura_attacker == "blue" && aura_target == "yellow") damage /= 2;
+		else if (aura_attacker == "yellow" && aura_target == "green") damage /= 2;
+		else if (aura_attacker == "green" && aura_target == "red") damage /= 2;
+
+		else if (aura_attacker == "green" && aura_target == "blue") damage *= 10;
+		else if (aura_attacker == "red" && aura_target == "yellow") damage *= 10;
+		
+		else if (aura_attacker == "blue" && aura_target == "green") damage = 0;
+		else if (aura_attacker == "yellow" && aura_target == "red") damage = 0;
+
+		cout << damage << "\n";
 	}
 }

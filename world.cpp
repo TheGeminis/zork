@@ -61,8 +61,9 @@ World::World()
 	entities.push_back(ex7);
 
 	// Creatures ----
-	Creature* skeleton = new Creature("Skeleton", "You don't believe your eyes, it's an esqueleton standing there menacingly", crypt);
+	Creature* skeleton = new Creature("Skeleton", "You don't believe your eyes, it's an esqueleton standing there menacingly", collapsed);
 	skeleton->hit_points = 10;
+	skeleton->aura = "yellow";
 
 	entities.push_back(skeleton);
 
@@ -77,14 +78,16 @@ World::World()
 
 	//Testing aura unlocking feature
 	Item* garnet = new Item("Garnet", "A gem that glows with a red light and feels warm to the touch.", collapsed, CHANGER);
-	garnet->aura = "red";
+	garnet->aura = "blue";
 
-	Item* sword = new Item("Sword", "A simple old and rusty sword.", chest, WEAPON);
+	Item* sword = new Item("Sword", "A simple old and rusty sword.", collapsed, WEAPON);
 	sword->min_value = 2;
 	sword->max_value = 6;
 
-	Item* sword2(sword);
-	sword2->parent = skeleton;
+	Item* mace = new Item("Mace", "A big scary mace", skeleton, WEAPON);
+	mace->min_value = 3;
+	mace->max_value = 7;
+	skeleton->AutoEquip();
 
 	Item* shield = new Item("Shield", "An old wooden shield.", skeleton, ARMOUR);
 	shield->min_value = 1;

@@ -486,7 +486,6 @@ bool Player::Use(const vector<string>& args)
 	if (!IsAlive()) return false;
 	
 	Item* item = (Item*)Find(args[1], ITEM);
-	cout << item->name;
 
 	if (item == NULL)
 	{

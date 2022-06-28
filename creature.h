@@ -31,6 +31,7 @@ public:
 	virtual void Die();
 	virtual bool Loot(const vector<string>& args);
 	virtual void Stats() const;
+	virtual void CombatModifiers(int& damage, string& aura_attacker, string& aura_target);
 
 	Room* GetRoom() const;
 	bool PlayerInRoom() const;
@@ -43,7 +44,7 @@ public:
 	int max_damage;
 	int min_protection;
 	int max_protection;
-	string aura;
+	string aura = "";
 	Creature* combat_target;
 	Item* weapon;
 	Item* armour;
