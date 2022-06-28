@@ -25,6 +25,7 @@ public:
 	bool UnLock(const vector<string>& args);
 	bool Combine(const vector<string>& args);
 	bool Use(const vector<string>& args);
+	bool DamageWarning(string& aura_opponent, string& aura_player);
 };
 
 #endif //__Player__

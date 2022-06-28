@@ -403,25 +403,16 @@ void Creature::Stats() const
 
 void Creature::CombatModifiers(int & damage, string & aura_attacker, string & aura_target) {
 	
-	if (aura_attacker != "" && aura_target != "" && aura_attacker != aura_target) {
-
+	int modifier = Modifiers(aura_attacker, aura_target);
+	
+	if (modifier > 0) {
+		
 		cout << "\nAura " << aura_attacker << " modifies damage to aura " << aura_target << " from " << damage << " to ";
 		
-		if (aura_attacker == "red" && aura_target == "green") damage *= 2;
-		else if (aura_attacker == "green" && aura_target == "yellow") damage *= 2;
-		else if (aura_attacker == "yellow" && aura_target == "blue") damage *= 2;
-		else if (aura_attacker == "blue" && aura_target == "red") damage *= 2;
-
-		else if (aura_attacker == "red" && aura_target == "blue") damage /= 2;
-		else if (aura_attacker == "blue" && aura_target == "yellow") damage /= 2;
-		else if (aura_attacker == "yellow" && aura_target == "green") damage /= 2;
-		else if (aura_attacker == "green" && aura_target == "red") damage /= 2;
-
-		else if (aura_attacker == "green" && aura_target == "blue") damage *= 10;
-		else if (aura_attacker == "red" && aura_target == "yellow") damage *= 10;
-		
-		else if (aura_attacker == "blue" && aura_target == "green") damage = 0;
-		else if (aura_attacker == "yellow" && aura_target == "red") damage = 0;
+		if (modifier == 1) damage *= 2;
+		else if (modifier == 2) damage /= 2;
+		else if (modifier == 3) damage *= 10;
+		else damage = 0;
 
 		cout << damage << "\n";
 	}

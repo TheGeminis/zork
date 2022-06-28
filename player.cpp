@@ -282,6 +282,28 @@ bool Player::Attack(const vector<string>& args)
 	}
 
 	else {
+		
+		if (DamageWarning(target->aura, this->aura)) {
+			
+			cout << "\nDo you still want to attack?\n";
+
+			string response = "";
+			cin >> response;
+
+			if (Same(response, "no") || Same(response, "n"))
+			{
+				cout << "\nYou back away slowly...\n";
+				return false;
+			}
+
+			else if (!Same(response, "yes") || !Same(response, "y")) {
+				
+				cout << "\nIf you can't respond a simple yes or no question in your head, maybe you sould not attempt to fight a real fight in the real world...\n";
+				cout << "\nYou back away slowly...\n";
+				return false;
+			}
+		}
+
 		combat_target = target;
 		cout << "\nYou jump to attack " << target->name << "!\n";
 		return true;
@@ -413,6 +435,11 @@ bool Player::UnLock(const vector<string>& args)
 				return false;
 			}
 		}
+
+		else {
+			cout << "\nCome back when you learn how to respond a simple yes or no question...\n";
+			return false;
+		}
 	}
 
 	else {
@@ -502,4 +529,23 @@ bool Player::Use(const vector<string>& args)
 	cout << "\nSomething is happening...\n";
 	this->aura = item->aura;
 	cout << "\nA " << item->aura << " colored light sorrounds you...\n";
+}
+
+bool Player::DamageWarning(string& aura_opponent, string& aura_player) {
+	
+	int modifier = Modifiers(aura_opponent, aura_player);
+
+	if (modifier <= 0) return false;
+
+	else {
+
+		cout << "\nYour " << aura_player << " aura reacts with the " << aura_opponent << " aura from this being\n";
+
+		if (modifier == 1) cout << "\nIt feels more powerful than you...\n";
+		else if (modifier == 2) cout << "\nIt feels less powerful than you...\n";
+		else if (modifier == 3) cout << "\nThis foe is beyond any of your skills... Run!!!\n";
+		else cout << "\nYou feel like a god compared to this thing...\n";
+
+		return true;
+	}
 }
