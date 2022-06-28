@@ -17,7 +17,7 @@ World::World()
 	// Rooms ----
 	Room* collapsed = new Room("Collapsed", "You find yourself inside a collapsed tunnel, the ceiling must have collapsed due to your weight.");
 	Room* hall = new Room("Hall", "You are inside a great hall, you are surrounded by great columns, small statues, and inscriptions on the walls.");
-	Room* temple = new Room("Temple", "The temple features a single altar in front of a statue depicting a hooded figure praying.");
+	Room* chapel = new Room("Chapel", "The Chapel features a single altar in front of a statue depicting a hooded figure praying.");
 	Room* vault = new Room("Vault", "The vault contains many pergamins and old rusted paintings on the walls.");
 	Room* intersection = new Room("Intersection", "A point where two tunnels meet connecting 4 places.");
 	Room* crypt = new Room("Crypt", "You are inside a room that seems to be built more like a prison cell, you have a feeling something doesn't want you here.");
@@ -26,7 +26,7 @@ World::World()
 	Room* devRoom = new Room("devRoom", "You are not meant to be here");
 
 	Exit* ex1 = new Exit("south", "north", "Hall entrance", collapsed, hall);
-	Exit* ex2 = new Exit("west", "east", "Decorated entrance", temple, hall);
+	Exit* ex2 = new Exit("west", "east", "Decorated entrance", chapel, hall);
 	Exit* ex3 = new Exit("north", "west", "Golden gate", vault, hall);
 	Exit* ex4 = new Exit("south", "north", "Main tunnel", hall, intersection);
 	Exit* ex5 = new Exit("up", "down", "stairs", crypt, intersection);
@@ -44,7 +44,7 @@ World::World()
 
 	entities.push_back(collapsed);
 	entities.push_back(hall);
-	entities.push_back(temple);
+	entities.push_back(chapel);
 	entities.push_back(vault);
 	entities.push_back(intersection);
 	entities.push_back(crypt);
@@ -95,7 +95,7 @@ World::World()
 	skeleton->AutoEquip();
 
 	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", skeleton, COMBINER);
-	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", temple, COMBINER);
+	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", chapel, COMBINER);
 	gem->comp = stone;
 	gem->full_combination = device;
 	stone->comp = gem;

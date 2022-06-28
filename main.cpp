@@ -15,7 +15,7 @@ int main()
 	vector<string> args;
 	args.reserve(10); //command with more than 10 arguments is not expected
 	
-	cout << WHITE_ "Welcome to MyZork!\n" _OFF;
+	cout << "TheGeminis presents: The lost Temple!\n";
 	cout << "----------------\n";
 	cout << "You awake from a big fall after the floor below you collapses when you were exploring an old ruin.\n";
 	World MyWorld;
@@ -47,7 +47,7 @@ int main()
 		}
 
 		if (MyWorld.GameFinished) {
-			cout << endl << WHITE_ "You did it, you escaped!\nCongratulations!" _OFF;
+			cout << endl << "You did it, you escaped!\nCongratulations!";
 			break;
 		}
 
@@ -65,6 +65,6 @@ int main()
 		}
 	}
 
-	cout << WHITE_ "\nThanks for playing, Bye!\n" _OFF;
+	cout << "\nThanks for playing, Bye!\n";
 	return 0;
 }

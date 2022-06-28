@@ -19,7 +19,7 @@ Room::~Room()
 
 void Room::Look() const
 {
-	cout << BROWN_ "\n" << name << "\n" _OFF;
+	cout <<"\n" << name << "\n";
 	cout << description;
 
 	// List exits --
@@ -28,7 +28,7 @@ void Room::Look() const
 		if (it->type == EXIT)
 		{
 			Exit* ex = (Exit*)it;
-			cout << "\nDirection (" << BROWN_ << ex->GetNameFrom(this) << _OFF << ") you see " << BROWN_  <<ex->GetDestinationFrom(this)->name << _OFF;
+			cout << "\nDirection (" << ex->GetNameFrom(this) << ") you see " << ex->GetDestinationFrom(this)->name;
 		}
 	}
 
@@ -38,7 +38,7 @@ void Room::Look() const
 		if (it->type == ITEM)
 		{
 			Item* item = (Item*)it;
-			cout << "\nThere is an item here: " << GREEN_ << item->name << _OFF;
+			cout << "\nThere is an item here: " << item->name;
 		}
 	}
 
@@ -48,7 +48,7 @@ void Room::Look() const
 		if (it->type == CREATURE)
 		{
 			Creature* cr = (Creature*)it;
-			cout << "\nThere is someone else here: " << BLUE_ << cr->name << _OFF;
+			cout << "\nThere is someone else here: " << cr->name;
 			if (cr->IsAlive() == false)
 				cout << " (dead)";
 		}
