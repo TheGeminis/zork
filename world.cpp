@@ -32,10 +32,15 @@ World::World()
 	Exit* ex5 = new Exit("up", "down", "stairs", crypt, intersection);
 	Exit* ex6 = new Exit("west", "east", "Golden tunnel", intersection, vault);
 	Exit* ex7 = new Exit("south", "north", "Iridescent doorway", intersection, portal);
-
+	
 	ex2->locked = true;
 	ex4->locked = true;
 	ex7->locked = true;
+
+	//Testing aura unlocking feature
+	ex1->exit_type = AURA;
+	ex1->aura = "red";
+	ex1->locked = true;
 
 	entities.push_back(collapsed);
 	entities.push_back(hall);
@@ -69,6 +74,10 @@ World::World()
 	ex2->key = key;
 	ex4->key = key2;
 	ex7->key = device;
+
+	//Testing aura unlocking feature
+	Item* garnet = new Item("Garnet", "A gem that glows with a red light and feels warm to the touch.", collapsed, CHANGER);
+	garnet->aura = "red";
 
 	Item* sword = new Item("Sword", "A simple old and rusty sword.", chest, WEAPON);
 	sword->min_value = 2;
@@ -227,6 +236,11 @@ bool World::ParseCommand(vector<string>& args)
 		else if (Same(args[0], "loot") || Same(args[0], "lt"))
 		{
 			player->Loot(args);
+		}
+
+		else if (Same(args[0], "use"))
+		{
+			player->Use(args);
 		}
 		else
 			ret = false;

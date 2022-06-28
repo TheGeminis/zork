@@ -50,10 +50,19 @@ bool Player::Go(const vector<string>& args)
 		return false;
 	}
 
-	if (exit->locked)
-	{
-		cout << "\nThat exit is locked.\n";
-		return false;
+	if (exit->locked) {
+		
+		if (exit->exit_type == KEY)
+		{
+			cout << "\nThat exit is locked. A key may open it...\n";
+			return false;
+		}
+
+		if (exit->exit_type == AURA)
+		{
+			cout << "\nThat exit is locked. A strange dim " << exit->aura << " light sorrounds it...\n";
+			return false;
+		}
 	}
 
 	cout << "\nYou take direction " << exit->GetNameFrom((Room*)parent) << "...\n";
@@ -377,18 +386,50 @@ bool Player::UnLock(const vector<string>& args)
 		return false;
 	}
 
-	Item* item = (Item*)Find(args[3], ITEM);
+	if (Same(args[3], "aura")) {
+		
+		if (exit->exit_type != AURA) {
+			cout << "\nThat exit does not test your soul.\n";
+			return false;
+		}
 
-	if (item == NULL)
-	{
-		cout << "\nKey '" << args[3] << "' not found in your inventory.\n";
-		return false;
+		cout << "\nDo you want to offer your soul?\n";
+		
+		string response = "";
+		cin >> response;
+
+		if (Same(response, "no") || Same(response, "n"))
+		{
+			cout << "\nCome back when you feel brave enough to offer your soul then...\n";
+			return false;
+		}
+
+		if (Same(response, "yes") || Same(response, "y")) {
+			
+			if (!Same(this->aura, exit->aura)) {
+				cout << "\nYour soul is not worthy! Suffer the punishment!\n";
+				cout << "\nYou take 1 damage!\n";
+				this->hit_points -= 1;
+				return false;
+			}
+		}
 	}
 
-	if (exit->key != item)
-	{
-		cout << "\nKey '" << item->name << "' is not the key for " << exit->GetNameFrom((Room*)parent) << ".\n";
-		return false;
+	else {
+
+		Item* item = (Item*)Find(args[3], ITEM);
+
+		if (item == NULL)
+		{
+			cout << "\nKey '" << args[3] << "' not found in your inventory.\n";
+			return false;
+		}
+
+		if (exit->key != item)
+		{
+			cout << "\nKey '" << item->name << "' is not the key for " << exit->GetNameFrom((Room*)parent) << ".\n";
+			return false;
+		}
 	}
 
 	cout << "\nYou unlock " << exit->GetNameFrom((Room*)parent) << "...\n";
@@ -437,4 +478,29 @@ bool Player::Combine(const vector<string>& args) {
 	device->ChangeParentTo(this);
 
 	return true;
+}
+
+
+bool Player::Use(const vector<string>& args)
+{
+	if (!IsAlive()) return false;
+	
+	Item* item = (Item*)Find(args[1], ITEM);
+	cout << item->name;
+
+	if (item == NULL)
+	{
+		cout << "\nObject '" << args[1] << "' not found in your inventory.\n";
+		return false;
+	}
+
+	if (item->item_type != CHANGER)
+	{
+		cout << "\nObject '" << args[1] << "' doesn't seem to have any effect.\n";
+		return false;
+	}
+
+	cout << "\nSomething is happening...\n";
+	this->aura = item->aura;
+	cout << "\nA " << item->aura << " colored light sorrounds you...\n";
 }

@@ -43,7 +43,6 @@ int main()
 				cout << key;
 			}
 			else
-				//cout << player_input;
 				Tokenize(player_input, args);
 		}
 

@@ -24,6 +24,7 @@ public:
 	bool Lock(const vector<string>& args);
 	bool UnLock(const vector<string>& args);
 	bool Combine(const vector<string>& args);
+	bool Use(const vector<string>& args);
 };
 
 #endif //__Player__

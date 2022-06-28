@@ -13,7 +13,8 @@ enum ItemType
 	COMMON,
 	WEAPON,
 	ARMOUR,
-	COMBINER
+	COMBINER,
+	CHANGER
 };
 
 class Item : public Entity {
@@ -28,6 +29,7 @@ public:
 	ItemType item_type;
 	int min_value;
 	int max_value;
+	string aura;
 	Item* comp; // compnent that needs to combine
 	Item* full_combination; // Result of combination
 };

@@ -8,6 +8,12 @@ class Room;
 
 using namespace std;
 
+enum ExitType {
+	KEY,
+	AURA,
+	NONE
+};
+
 class Exit : public Entity
 {
 public:
@@ -24,7 +30,11 @@ public:
 	bool locked;
 	string opposite_name;
 	Room* destination;
+	
 	Entity* key;
+	string aura;
+	
+	ExitType exit_type;
 };
 
 #endif //__Exit__
