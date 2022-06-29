@@ -396,7 +396,7 @@ void Creature::Stats() const
 	cout << ((armour) ? armour->min_value : min_protection) << "-" << ((armour) ? armour->max_value : max_protection);
 	cout << "\n";
 	if (aura != "") {
-		cout << "Your aura feels " << aura;
+		cout << "The aura is " << aura;
 		cout << "\n";
 	}
 }

@@ -15,32 +15,53 @@ World::World()
 	tick_timer = clock();
 
 	// Rooms ----
-	Room* collapsed = new Room("Collapsed", "You find yourself inside a collapsed tunnel, the ceiling must have collapsed due to your weight.");
+	Room* collapsed = new Room("Collapsed tunnel", "You find yourself inside a collapsed tunnel, the ceiling must have collapsed due to your weight.");
 	Room* hall = new Room("Hall", "You are inside a great hall, you are surrounded by great columns, small statues, and inscriptions on the walls.");
 	Room* chapel = new Room("Chapel", "The Chapel features a single altar in front of a statue depicting a hooded figure praying.");
 	Room* vault = new Room("Vault", "The vault contains many pergamins and old rusted paintings on the walls.");
 	Room* intersection = new Room("Intersection", "A point where two tunnels meet connecting 4 places.");
 	Room* crypt = new Room("Crypt", "You are inside a room that seems to be built more like a prison cell, you have a feeling something doesn't want you here.");
-	Room* portal = new Room("Portal", "This room is different from all the other places you have seen, at the center, there is a frame with columns that resemble an entrance. Maybe you can get out through here.");
+	Room* lab = new Room("Lab", "You are inside a room full of old crystal flasks, boxes and a cauldron in the middle.");
+	Room* library = new Room("Library", "You are inside a room full of old bookcases and moldy books.");
+	Room* portalRoom = new Room("Portal Room", "This room is different from all the other places you have seen, at the center, there is a frame with columns that resemble an entrance. Maybe you can get out through here.");
+	Room* portal = new Room("Portal", "You can exit through here...");
 
 	Room* devRoom = new Room("devRoom", "You are not meant to be here");
 
+
 	Exit* ex1 = new Exit("south", "north", "Hall entrance", collapsed, hall);
-	Exit* ex2 = new Exit("west", "east", "Decorated entrance", chapel, hall);
-	Exit* ex3 = new Exit("north", "west", "Golden gate", vault, hall);
-	Exit* ex4 = new Exit("south", "north", "Main tunnel", hall, intersection);
-	Exit* ex5 = new Exit("up", "down", "stairs", crypt, intersection);
-	Exit* ex6 = new Exit("west", "east", "Golden tunnel", intersection, vault);
-	Exit* ex7 = new Exit("south", "north", "Iridescent doorway", intersection, portal);
+	Exit* ex2 = new Exit("north", "south", "Decorated entrance", chapel, hall);
+	Exit* ex3 = new Exit("down", "up", "Main stairs", hall, intersection);
+	Exit* ex4 = new Exit("west", "east", "Iridescent doorway", hall, portalRoom);
+	Exit* ex5 = new Exit("south", "north", "Golden gate", vault, intersection);
+	Exit* ex6 = new Exit("west", "east", "Fuming gate", lab, intersection);
+	Exit* ex7 = new Exit("north", "south", "Bony Gate", crypt, intersection);
+	Exit* ex8 = new Exit("east", "west", "Wooden door", hall, library);
+	Exit* ex9 = new Exit("center", "exterior", "Portal", portalRoom, portal);
 	
+	
+	ex2->exit_type = AURA;
+	ex2->aura = "red";
 	ex2->locked = true;
-	ex4->locked = true;
+
+	ex5->exit_type = KEY;
+	ex5->locked = true;
+	
+	ex6->exit_type = AURA;
+	ex6->aura = "yellow";
+	ex6->locked = true;
+	
+	ex7->exit_type = AURA;
+	ex7->aura = "blue";
 	ex7->locked = true;
 
-	//Testing aura unlocking feature
-	ex1->exit_type = AURA;
-	ex1->aura = "red";
-	ex1->locked = true;
+	ex8->exit_type = AURA;
+	ex8->aura = "yellow";
+	ex8->locked = true;
+
+	ex9->exit_type = KEY;
+	ex9->locked = true;
+
 
 	entities.push_back(collapsed);
 	entities.push_back(hall);
@@ -48,6 +69,9 @@ World::World()
 	entities.push_back(vault);
 	entities.push_back(intersection);
 	entities.push_back(crypt);
+	entities.push_back(lab);
+	entities.push_back(library);
+	entities.push_back(portalRoom);
 	entities.push_back(portal);
 
 	entities.push_back(devRoom);
@@ -59,28 +83,57 @@ World::World()
 	entities.push_back(ex5);
 	entities.push_back(ex6);
 	entities.push_back(ex7);
+	entities.push_back(ex8);
+	entities.push_back(ex9);
+
 
 	// Creatures ----
-	Creature* skeleton = new Creature("Skeleton", "You don't believe your eyes, it's an esqueleton standing there menacingly", collapsed);
+	Creature* skeleton = new Creature("Skeleton", "You don't believe your eyes, it's an esqueleton standing there menacingly.", intersection);
 	skeleton->hit_points = 10;
-	skeleton->aura = "yellow";
+	skeleton->aura = "blue";
+
+	Creature* ghost = new Creature("Ghost", "You feel chills, it's a ghost looking right at you.", library);
+	ghost->hit_points = 10;
+	ghost->aura = "red";
+
+	Creature* zombie = new Creature("Zombie", "You try not to puke, it's a zombie half decomposed.", crypt);
+	zombie->hit_points = 10;
+	zombie->aura = "green";
+
+	Creature* witch = new Creature("Witch", "You don't believe your eyes, it a witch laughing maniacally!", lab);
+	witch->hit_points = 10;
+	witch->aura = "yellow";
+
+	Creature* demon = new Creature("Demon", "You don't believe your eyes, it's a demon from the frozen depths of hell!", chapel);
+	demon->hit_points = 10;
+	demon->aura = "blue";
 
 	entities.push_back(skeleton);
+	entities.push_back(ghost);
+	entities.push_back(zombie);
+	entities.push_back(witch);
+	entities.push_back(demon);
+
 
 	// Items -----
 	Item* chest = new Item("Chest", "Looks like it might contain something.", vault);
-	Item* key = new Item("Key", "Old iron key.", chest);
-	Item* key2 = new Item("Shortcut Key", "This key may help you go somewhere faster.", skeleton);
+	Item* key = new Item("Key", "Old iron key.", portalRoom);
 	Item* device = new Item("Device", "Glows and feels powerful...", devRoom);
-	ex2->key = key;
-	ex4->key = key2;
-	ex7->key = device;
+	
+	ex5->key = key;
+	ex9->key = device;
 
-	//Testing aura unlocking feature
-	Item* garnet = new Item("Garnet", "A gem that glows with a red light and feels warm to the touch.", collapsed, CHANGER);
-	garnet->aura = "blue";
+	Item* garnet = new Item("Garnet", "A gem that glows with a red light and feels warm to the touch.", ghost, CHANGER);
+	Item* opal = new Item("Opal", "A gem that glows with a blue light and feels cold to the touch.", skeleton, CHANGER);
+	Item* jade = new Item("Jade", "A gem that glows with a green light and feels pulsating with life.", zombie, CHANGER);
+	Item* pearl = new Item("Pearl", "A gem that glows with a yellow light and makes you feel tingles while touching it.", chest, CHANGER);
+	
+	garnet->aura = "red";
+	opal->aura = "blue";
+	jade->aura = "green";
+	pearl->aura = "yellow";
 
-	Item* sword = new Item("Sword", "A simple old and rusty sword.", collapsed, WEAPON);
+	Item* sword = new Item("Sword", "A simple old and rusty sword.", chest, WEAPON);
 	sword->min_value = 2;
 	sword->max_value = 6;
 
@@ -89,23 +142,49 @@ World::World()
 	mace->max_value = 7;
 	skeleton->AutoEquip();
 
+	Item* chandelier = new Item("Chandelier", "An old yet supresingly sturdy chandelier lit with fire.", ghost, WEAPON);
+	chandelier->min_value = 3;
+	chandelier->max_value = 7;
+	ghost->AutoEquip();
+
+	Item* wand = new Item("Wand", "A sparkly wand that emits energy.", witch, WEAPON);
+	wand->min_value = 3;
+	wand->max_value = 7;
+	witch->AutoEquip();
+	
+	Item* axe = new Item("Axe", "A giant frozen axe.", demon, WEAPON);
+	axe->min_value = 3;
+	axe->max_value = 7;
+	demon->AutoEquip();
+
 	Item* shield = new Item("Shield", "An old wooden shield.", skeleton, ARMOUR);
 	shield->min_value = 1;
 	shield->max_value = 3;
 	skeleton->AutoEquip();
 
-	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", skeleton, COMBINER);
-	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", chapel, COMBINER);
+	Item* encyclopedia = new Item("Encyclopedia", "An old giant book that does a surprisingly good job as a shield.", ghost, ARMOUR);
+	encyclopedia->min_value = 1;
+	encyclopedia->max_value = 3;
+	ghost->AutoEquip();
+
+	Item* headstone = new Item("Headstone", "A big piece of stone with some engravings.", zombie, ARMOUR);
+	headstone->min_value = 1;
+	headstone->max_value = 3;
+	zombie->AutoEquip();
+
+	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", witch, COMBINER);
+	Item* stone = new Item("Stone", "An hexagonal shaped stone with a hole in the middle, maybe it is of some use...", demon, COMBINER);
 	gem->comp = stone;
 	gem->full_combination = device;
 	stone->comp = gem;
 	stone->full_combination = device;
 
-	entities.push_back(chest);
-	entities.push_back(sword);
-	entities.push_back(shield);
-	entities.push_back(gem);
-	entities.push_back(stone);
+	//entities.push_back(chest);
+	//entities.push_back(key);
+	//entities.push_back(sword);
+	//entities.push_back(shield);
+	//entities.push_back(gem);
+	//entities.push_back(stone);
 
 	// Player ----
 	player = new Player("Explorer", "You are an explorer tasked with surveing some old ruins in the forest.", collapsed);
