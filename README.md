@@ -49,7 +49,7 @@ go east
 10. Go to the Portal Room and craft the device that acts as a key for the portal using the combine/comb command, then unlock the portal exit and go through it to escape and finish the game.
 ```
 combine gem with stone
-unlock portal with device
+unlock center with device
 go portal
 ```
 Congratulations, you have finished the game.
@@ -66,6 +66,7 @@ Congratulations, you have finished the game.
 * examine [blank]
 * attack [blank]
 * loot [blank]
+* use [blank]
 * unlock [blank] with [blank]
 * lock [blank] with [blank]
 * drop/put [blank] on [blank]
