@@ -93,19 +93,19 @@ World::World()
 	skeleton->aura = "blue";
 
 	Creature* ghost = new Creature("Ghost", "You feel chills, it's a ghost looking right at you.", library);
-	ghost->hit_points = 10;
+	ghost->hit_points = 31;
 	ghost->aura = "red";
 
 	Creature* zombie = new Creature("Zombie", "You try not to puke, it's a zombie half decomposed.", crypt);
-	zombie->hit_points = 10;
+	zombie->hit_points = 115;
 	zombie->aura = "green";
 
 	Creature* witch = new Creature("Witch", "You don't believe your eyes, it a witch laughing maniacally!", lab);
-	witch->hit_points = 10;
+	witch->hit_points = 18;
 	witch->aura = "yellow";
 
 	Creature* demon = new Creature("Demon", "You don't believe your eyes, it's a demon from the frozen depths of hell!", chapel);
-	demon->hit_points = 10;
+	demon->hit_points = 666;
 	demon->aura = "blue";
 
 	entities.push_back(skeleton);
@@ -138,23 +138,28 @@ World::World()
 	sword->max_value = 6;
 
 	Item* mace = new Item("Mace", "A big scary mace", skeleton, WEAPON);
-	mace->min_value = 3;
-	mace->max_value = 7;
+	mace->min_value = 4;
+	mace->max_value = 8;
 	skeleton->AutoEquip();
 
+	Item* bone = new Item("Bone", "A half eaten bone", zombie, WEAPON);
+	bone->min_value = 0;
+	bone->max_value = 1;
+	zombie->AutoEquip();
+
 	Item* chandelier = new Item("Chandelier", "An old yet supresingly sturdy chandelier lit with fire.", ghost, WEAPON);
-	chandelier->min_value = 3;
-	chandelier->max_value = 7;
+	chandelier->min_value = 4;
+	chandelier->max_value = 10;
 	ghost->AutoEquip();
 
 	Item* wand = new Item("Wand", "A sparkly wand that emits energy.", witch, WEAPON);
-	wand->min_value = 3;
-	wand->max_value = 7;
+	wand->min_value = 8;
+	wand->max_value = 88;
 	witch->AutoEquip();
 	
 	Item* axe = new Item("Axe", "A giant frozen axe.", demon, WEAPON);
-	axe->min_value = 3;
-	axe->max_value = 7;
+	axe->min_value = 10;
+	axe->max_value = 30;
 	demon->AutoEquip();
 
 	Item* shield = new Item("Shield", "An old wooden shield.", skeleton, ARMOUR);
@@ -163,13 +168,13 @@ World::World()
 	skeleton->AutoEquip();
 
 	Item* encyclopedia = new Item("Encyclopedia", "An old giant book that does a surprisingly good job as a shield.", ghost, ARMOUR);
-	encyclopedia->min_value = 1;
-	encyclopedia->max_value = 3;
+	encyclopedia->min_value = 3;
+	encyclopedia->max_value = 7;
 	ghost->AutoEquip();
 
 	Item* headstone = new Item("Headstone", "A big piece of stone with some engravings.", zombie, ARMOUR);
-	headstone->min_value = 1;
-	headstone->max_value = 3;
+	headstone->min_value = 10;
+	headstone->max_value = 20;
 	zombie->AutoEquip();
 
 	Item* gem = new Item("Gem", "A small gem, maybe it is of some use...", witch, COMBINER);
